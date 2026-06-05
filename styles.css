@@ -658,10 +658,14 @@ h3 {
   background: rgba(7, 11, 13, 0.55);
 }
 
+.capability-photo {
+  aspect-ratio: 16 / 9;
+}
+
 .capability-photo img {
   display: block;
   width: 100%;
-  height: 540px;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -684,6 +688,20 @@ code {
   color: var(--ink);
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: 0.92em;
+}
+
+abbr {
+  text-decoration: none;
+  border-bottom: 1px dotted var(--cyan);
+  cursor: help;
+  color: var(--cyan);
+  font-weight: 600;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+abbr:hover {
+  color: var(--teal);
+  border-bottom-color: var(--teal);
 }
 
 .timeline article {
@@ -763,6 +781,68 @@ code {
   font-size: 0.9rem;
 }
 
+/* Ultra-small screen optimizations */
+@media (max-width: 400px) {
+  .capability-grid article,
+  .timeline article,
+  .work-card {
+    flex: 0 0 min(calc(100vw - 1.5rem), 260px);
+  }
+
+  .capability-photo img {
+    height: 300px;
+  }
+
+  h1 {
+    font-size: clamp(1.8rem, 10vw, 2.8rem);
+  }
+
+  h2 {
+    font-size: clamp(1.4rem, 6vw, 2rem);
+  }
+
+  .hero {
+    padding: clamp(2rem, 4vw, 3rem) 0;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .work-card,
+  .capability-grid article,
+  .timeline article {
+    padding: 1.2rem 1rem;
+  }
+
+  .schematic {
+    min-height: 320px;
+  }
+
+  .metric-band div {
+    min-height: 140px;
+    padding: 1.5rem 1rem;
+  }
+}
+
+/* Carousel indicator dots (optional enhancement) */
+.carousel-indicator {
+  display: flex;
+  gap: 0.4rem;
+  justify-content: center;
+  margin-top: 1rem;
+  padding: 0 1rem;
+}
+
+.carousel-indicator span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(159, 233, 255, 0.3);
+  transition: background 300ms ease;
+}
+
+.carousel-indicator span.active {
+  background: rgba(159, 233, 255, 0.9);
+}
+
 
 
 @media (max-width: 920px) {
@@ -795,8 +875,7 @@ code {
     min-height: 430px;
   }
 
-  .metric-band,
-  .capability-grid {
+  .metric-band {
     grid-template-columns: 1fr;
   }
 
@@ -809,6 +888,7 @@ code {
     border-bottom: 0;
   }
 
+  /* Carousel styles for work grid */
   .work-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -817,6 +897,44 @@ code {
 
   .work-card {
     min-height: auto;
+  }
+
+  /* Capability grid carousel */
+  .capability-grid {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(159, 233, 255, 0.3) rgba(255, 255, 255, 0.05);
+  }
+
+  .capability-grid article {
+    flex: 0 0 min(100%, 340px);
+    scroll-snap-align: start;
+  }
+
+  /* Timeline carousel */
+  .timeline {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(159, 233, 255, 0.3) rgba(255, 255, 255, 0.05);
+  }
+
+  .timeline article {
+    flex: 0 0 min(100%, 320px);
+    scroll-snap-align: start;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
   }
 }
 
@@ -906,5 +1024,101 @@ code {
 
   .site-footer {
     flex-direction: column;
+  }
+
+  /* Mobile carousel refinements */
+  .capability-grid {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    margin-inline: -1rem;
+    padding-inline: 1rem;
+  }
+
+  .capability-grid article {
+    flex: 0 0 min(calc(100vw - 2rem), 300px);
+    scroll-snap-align: start;
+  }
+
+
+
+  /* Timeline carousel on mobile */
+  .timeline {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    margin-inline: -1rem;
+    padding-inline: 1rem;
+  }
+
+  .timeline article {
+    flex: 0 0 min(calc(100vw - 2rem), 280px);
+    scroll-snap-align: start;
+  }
+
+  /* Work grid carousel on mobile */
+  .work-grid {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    margin-inline: -1rem;
+    padding-inline: 1rem;
+  }
+
+  .work-card {
+    flex: 0 0 min(calc(100vw - 2rem), 320px);
+    scroll-snap-align: start;
+  }
+
+  /* Systems carousel on mobile */
+  .systems-section {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    overflow-x: visible;
+  }
+
+  .systems-panel {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  /* Smooth scrollbar styling for carousels */
+  .work-grid::-webkit-scrollbar,
+  .capability-grid::-webkit-scrollbar,
+  .timeline::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .work-grid::-webkit-scrollbar-track,
+  .capability-grid::-webkit-scrollbar-track,
+  .timeline::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+  }
+
+  .work-grid::-webkit-scrollbar-thumb,
+  .capability-grid::-webkit-scrollbar-thumb,
+  .timeline::-webkit-scrollbar-thumb {
+    background: rgba(159, 233, 255, 0.3);
+    border-radius: 3px;
+  }
+
+  .work-grid::-webkit-scrollbar-thumb:hover,
+  .capability-grid::-webkit-scrollbar-thumb:hover,
+  .timeline::-webkit-scrollbar-thumb:hover {
+    background: rgba(159, 233, 255, 0.5);
   }
 }
